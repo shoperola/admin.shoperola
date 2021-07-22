@@ -37,9 +37,10 @@ function Header(props) {
 <div className="dropdown d-inline-block">
 <button type="button" className="profile-drop btn header-item waves-effect" id="page-header-user-dropdown"
 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<img className="rounded-circle header-profile-user" src="/assets/images/users/avatar-4.jpg"
+    {/* profile logo */}
+<img className="rounded-circle header-profile-user" src=""
 alt="Header Avatar"/>
-<span className="d-none d-xl-inline-block ml-1 font-weight-medium font-size-15">Krishna</span>
+<span className="d-none d-xl-inline-block ml-1 font-weight-medium font-size-15">Name</span>
 <i className="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
 </button>
 <div className="dropdown-menu dropdown-menu-right">

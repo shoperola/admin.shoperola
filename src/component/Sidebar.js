@@ -7,14 +7,31 @@ function Sidebar(props) {
 
         {/* <!-- LOGO --> */}
         <div className="navbar-brand-box">
-            <a href="index.html" className="logo logo-light">
+            {/* <a href="index.html" className="logo logo-light">
                 <span className="logo-sm">
                     <img src="/assets/images/logo-sm.png" alt="" height="40"/>
                 </span>
                 <span className="logo-lg">
                     <img src="/assets/images/logo-light.png" alt=""/>
                 </span>
-            </a>
+            </a> */}
+        <Link to="/" className="logo logo-dark">
+          <span className="logo-sm">
+            <img src="/assets/images/logo-sm.png" alt="" height="40" />
+          </span>
+          <span className="logo-lg">
+            <img src="/assets/images/logo-light.png" alt="" height="20" />
+          </span>
+        </Link>
+
+        <Link to="/" className="logo logo-light">
+          <span className="logo-sm">
+            <img src="/assets/images/logo-sm.png" alt="" height="40" />
+          </span>
+          <span className="logo-lg">
+            <img src="/assets/images/logo-light.png" alt="" height="20" />
+          </span>
+        </Link>
         </div>
 
         <button type="button" className="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
