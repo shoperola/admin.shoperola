@@ -22,26 +22,24 @@ import PaymentSettings from './component/PaymentSettings';
 function App() {
   return (
     <Router>
- 
       <Switch>
-         <Route path="/" exact component={Dashboard}/>
-         <Route path="/login" exact component={Login}/>
-         <Route path="/resetPassword" exact component={ChangePassword}/>
-         <Route path="/client" exact component={Client}/>
-         <Route path="/client/view" exact component={ClientView}/>
-         <Route path="/orders" exact component={Orders}/>
-         <Route path="/orders/view" exact component={OrdersView}/>
-         <Route path="/contacts/request" exact component={ContactRequest}/>
-         <Route path="/contacts/request/view" exact component={ContactRequestView}/>
-         <Route path="/demo/request" exact component={DemoRequest}/>
-         <Route path="/home/settings" exact component={HomePageSettings}/>
-         <Route path="/address" exact component={FooterAddress}/>
-         <Route path="/social" exact component={FooterSocialMedia}/>
-         <Route path="/logo" exact component={FooterLogo}/>
-         <Route path="/links" exact component={FooterLinks}/>
-         <Route path="/payment/settings" exact component={PaymentSettings}/>
-         <Route path="/newsletter" exact component={NewsLetters}/>
-        
+        <Route path="/" exact component={Login} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/resetPassword" exact component={ChangePassword} />
+        <Route path="/client" exact component={Client} />
+        <Route path="/client/view" exact component={ClientView} />
+        <Route path="/orders" exact component={Orders} />
+        <Route path="/orders/view" exact component={OrdersView} />
+        <Route path="/contacts/request" exact component={ContactRequest} />
+        <Route path="/contacts/request/view" exact component={ContactRequestView} />
+        <Route path="/demo/request" exact component={DemoRequest} />
+        <Route path="/home/settings" exact component={HomePageSettings} />
+        <Route path="/address" exact component={FooterAddress} />
+        <Route path="/social" exact component={FooterSocialMedia} />
+        <Route path="/logo" exact component={FooterLogo} />
+        <Route path="/links" exact component={FooterLinks} />
+        <Route path="/payment/settings" exact component={PaymentSettings} />
+        <Route path="/newsletter" exact component={NewsLetters} />
       </Switch>
     </Router>
   );
