@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { isAutheticated } from './auth/authHelper';
 
 function HomePageSettings(props) {
 
@@ -25,14 +26,14 @@ function HomePageSettings(props) {
         image_description_4: "",
     })
 
-    // const { token } = isAutheticated()
+    const { token } = isAutheticated()
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             let res = await axios.get(`https://api.tellytell.com/admin/view_all_home`, {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZmU2M2E1MGFjZjZkNTIwODE0ZjYxMyIsImlhdCI6MTYyODIzMjA5NCwiZXhwIjoxNjM2ODcyMDk0fQ.45BlqV35taq9hcciqygwC4ezb21HuUE7cZPceZn4dn0`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
             console.log(res.data)
@@ -102,14 +103,14 @@ function HomePageSettings(props) {
             // }
             let res = await axios.patch(`https://mantur-server.herokuapp.com/admin/update_home_setting/${data[0]?._id}`, formData, {
                 headers: {
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZmU2M2E1MGFjZjZkNTIwODE0ZjYxMyIsImlhdCI6MTYyODIzMjA5NCwiZXhwIjoxNjM2ODcyMDk0fQ.45BlqV35taq9hcciqygwC4ezb21HuUE7cZPceZn4dn0`,
+                        Authorization: `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
                     }
             })
             console.log(res);
-            // if (res) {
-            //     window.location.reload()
-            // }
+            if (res) {
+                window.location.reload()
+            }
         } else {
             console.log(State)
             const formData = new FormData();
@@ -131,7 +132,12 @@ function HomePageSettings(props) {
             // headers: {
             //     Authorization: `Bearer ${token}`,
             // }
-            let res = await axios.post(`http://api.tellytell.info/admin/add_data`, formData)
+            let res = await axios.post(`http://api.tellytell.info/admin/add_data`, formData,{
+                headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    }
+            })
             console.log(res);
             if (res) {
                 window.location.reload()
