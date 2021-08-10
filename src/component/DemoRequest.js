@@ -4,7 +4,19 @@ import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+import { API_URl } from './api';
+import {useEffect,useState} from "react";
+import axios from 'axios';
+
 function DemoRequest(props) {
+    const [demoRequests,setDemoRequests]=useState(null)
+    useEffect(() => {
+        const getDemoRequests =async()=>{
+            let {data} = await axios.get(`${API_URl}/view_demo`);
+            setDemoRequests(data.data);
+        }
+        getDemoRequests()
+    },[])
     return (
        <div>
            <Sidebar/>
@@ -64,17 +76,19 @@ function DemoRequest(props) {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Nadeem Khan</td>
-<td>nadeemkp181@gmail.com</td>
-<td>20 Jul 2021</td>
-<td>10:10 a.m.</td>		
-<td><span className="badge badge-pill badge-soft-success font-size-12">Read</span></td>
-<td><a href="demo-requests-view.html">
-<button type="button" className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2">
-View</button></a>
-</td>
-</tr>
+{demoRequests&&
+    demoRequests.map(req=>
+    <tr key={req._id}>
+        <td>{req.name}</td>
+        <td>{req.email}</td>
+        <td>{new Date(req.time_slot).getDate()>9?new Date(req.time_slot).getDate():"0"+new Date(req.time_slot).getDate()} {new Date(req.time_slot).getMonth()+1>9?new Date(req.time_slot).getMonth()+1:"0"+(new Date(req.time_slot).getMonth()+1)} {new Date(req.time_slot).getFullYear()}</td>
+        <td>{req.time_slot?.split("T")[1]?.split(".")[0]?.substr(0, 5)}</td>		
+        <td><span className="badge badge-pill badge-soft-success font-size-12">Read</span></td>
+        <td><Link to={`/demo/request/view/${req._id}`}>
+        <button type="button" className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2">
+        View</button></Link>
+        </td>
+    </tr>)}
 </tbody>
 </table>
 </div>
@@ -90,24 +104,24 @@ View</button></a>
 <ul className="pagination">
 
 <li className="paginate_button page-item previous disabled">
-<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0" className="page-link">Previous</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
 </li>
 
 <li className="paginate_button page-item active">
-<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0" className="page-link">1</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0" className="page-link">2</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0" className="page-link">3</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
 </li>
 
 
 <li className="paginate_button page-item next">
-<a href="#" tabindex="0" className="page-link">Next</a>
+<a href="#/" tabIndex="0" className="page-link">Next</a>
 </li>
 
 </ul>

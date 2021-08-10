@@ -9,6 +9,7 @@ import ContactRequest from './component/ContactRequest';
 import ContactRequestView from './component/ContactRequestView';
 import Dashboard from './component/Dashboard';
 import DemoRequest from './component/DemoRequest';
+import DemoRequestView from "./component/DemoRequestView";
 import FooterAddress from './component/FooterAddress';
 import FooterLinks from './component/FooterLinks';
 import FooterLogo from './component/FooterLogo';
@@ -31,8 +32,9 @@ function App() {
         <Route path="/orders" exact component={Orders} />
         <Route path="/orders/view" exact component={OrdersView} />
         <Route path="/contacts/request" exact component={ContactRequest} />
-        <Route path="/contacts/request/view" exact component={ContactRequestView} />
+        <Route path="/contacts/request/view/:id" exact component={ContactRequestView} />
         <Route path="/demo/request" exact component={DemoRequest} />
+        <Route path="/demo/request/view/:id" exact component={DemoRequestView} />
         <Route path="/home/settings" exact component={HomePageSettings} />
         <Route path="/address" exact component={FooterAddress} />
         <Route path="/social" exact component={FooterSocialMedia} />

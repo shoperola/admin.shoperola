@@ -4,7 +4,19 @@ import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+import { API_URl } from './api';
+import {useEffect,useState} from "react";
+import axios from 'axios';
+
 function NewsLetters(props) {
+    const [newsLetters,setNewsLetters]=useState(null)
+    useEffect(() => {
+        const getNewsLetters=async()=>{
+            let {data} = await axios.get(`${API_URl}/view_news`);
+            setNewsLetters(data.data);
+        }
+        getNewsLetters()
+    },[])
     return (
         <div>
             <Sidebar/>
@@ -62,11 +74,13 @@ function NewsLetters(props) {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>test@test.com</td>
-<td>192.168.10.1</td>
-<td>22 Jul 2021 10:10 a.m.</td>	
-</tr>
+{newsLetters&&
+    newsLetters.map(newsLetter=>
+<tr key={newsLetter._id}>
+<td>{newsLetter.email}</td>
+    <td>{newsLetter.ip_address}</td>
+    <td>{new Date(newsLetter.updatedAt).getDate()>9?new Date(newsLetter.updatedAt).getDate():"0"+new Date(newsLetter.updatedAt).getDate()}{"-"}{new Date(newsLetter.updatedAt).getMonth()+1>9?new Date(newsLetter.updatedAt).getMonth()+1:"0"+(new Date(newsLetter.updatedAt).getMonth()+1)}{"-"}{new Date(newsLetter.updatedAt).getFullYear()}{"  "} {newsLetter.updatedAt.split("T")[1].split(".")[0].substr(0, 5)}</td>	
+</tr>)}
 </tbody>
 </table>
 </div>
@@ -82,23 +96,23 @@ function NewsLetters(props) {
 <ul className="pagination">
 
 <li className="paginate_button page-item previous disabled">
-<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0" className="page-link">Previous</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
 </li>
 
 <li className="paginate_button page-item active">
-<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0" className="page-link">1</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0" className="page-link">2</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0" className="page-link">3</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
 </li>
 
 <li className="paginate_button page-item next">
-<a href="#" tabindex="0" className="page-link">Next</a>
+<a href="#/" tabIndex="0" className="page-link">Next</a>
 </li>
 
 </ul>

@@ -4,7 +4,19 @@ import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+import { API_URl } from './api';
+import {useEffect,useState} from "react";
+import axios from 'axios';
+
 function ContactRequest(props) {
+    const [constacts,setContacts]=useState(null)
+    useEffect(() => {
+        const getContacts=async()=>{
+            let {data} = await axios.get(`${API_URl}/view_contact`);
+            setContacts(data.data);
+        }
+        getContacts()
+    },[])
     return (
         <div>
             <Sidebar/>
@@ -62,16 +74,20 @@ function ContactRequest(props) {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Nadeem Khan</td>
-<td>nadeemkp181@gmail.com</td>
-<td>20 Jul 2021</td>
-<td><span className="badge badge-pill badge-soft-success font-size-12">Read</span></td>
-<td><Link to="/contacts/request/view">
+    {constacts &&
+    constacts.map(constact=>
+<tr key={constact._id}>
+    <td>{constact.name}</td>
+<td>{constact.email}</td>
+    <td>{new Date(constact.createdAt).getDate()>9?new Date(constact.createdAt).getDate():"0"+new Date(constact.createdAt).getDate()}{"-"}{new Date(constact.createdAt).getMonth()+1>9?new Date(constact.createdAt).getMonth()+1:"0"+(new Date(constact.createdAt).getMonth()+1)}{"-"}{new Date(constact.createdAt).getFullYear()}</td>
+    <td><span className="badge badge-pill badge-soft-success font-size-12">{constact.status?constact.status:"Pending"}</span></td>
+<td><Link to={`/contacts/request/view/${constact._id}`}>
 <button type="button" className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2">
 View</button></Link>
 </td>
-</tr>
+</tr>)}
+
+
 </tbody>
 </table>
 </div>
@@ -87,24 +103,24 @@ View</button></Link>
 <ul className="pagination">
 
 <li className="paginate_button page-item previous disabled">
-<a href="#" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
 </li>
 
 <li className="paginate_button page-item active">
-<a href="#" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
 </li>
 
 
 <li className="paginate_button page-item next">
-<a href="#" tabIndex="0" className="page-link">Next</a>
+<a href="#/" tabIndex="0" className="page-link">Next</a>
 </li>
 
 </ul>

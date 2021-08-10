@@ -12,13 +12,13 @@ import { useParams } from 'react-router-dom';
 
 function ContactRequestView(props) {
     const { id } = useParams();
-    const [constact,setContact]=useState(null)
+    const [demo,setDemo]=useState(null)
     useEffect(() => {
-        const getContact=async()=>{
-            let {data} = await axios.get(`${API_URl}/view_contact_id/${id}`);
-            setContact(data.data);
+        const getDemo=async()=>{
+            let {data} = await axios.get(`${API_URl}/view_demo_id/${id}`);
+            setDemo(data.data);
         }
-        getContact()
+        getDemo()
     },[id])
     return (
        <div>
@@ -53,7 +53,10 @@ function ContactRequestView(props) {
             </div>
         </div>
 
-       {/* <!-- end page title --> */}     
+       {/* <!-- end page title --> */}
+
+
+     
 <div className="row">
 <div className="col-lg-12">
 <div className="card">
@@ -66,7 +69,7 @@ function ContactRequestView(props) {
 
 <h1 className="text-left head-small">View Details</h1>
 
-{constact&&
+{demo&&
 <form>
 
 
@@ -74,34 +77,44 @@ function ContactRequestView(props) {
 
 <div className="row mt-20">
 <div className="col-md-4 font-b">Name</div>
-<div className="col-md-8">{constact.name}</div>
+<div className="col-md-8">{demo.name}</div>
 </div>
 <div className="row mt-20">
 <div className="col-md-4 font-b">Email</div>
-<div className="col-md-8">{constact.email}</div>
+<div className="col-md-8">{demo.email}</div>
 </div>
 <div className="row mt-20">
 <div className="col-md-4 font-b">Message</div>
-<div className="col-md-8">{constact.message}</div>
+<div className="col-md-8">{demo.message}</div>
 </div>
+{demo.contact_number&&
+    <div className="row mt-20">
+<div className="col-md-4 font-b">Contact Number</div>
+<div className="col-md-8">{demo.contact_number}</div>
+</div>
+}
+{demo.country&&<div className="row mt-20">
+<div className="col-md-4 font-b">Country</div>
+<div className="col-md-8">{demo.country}</div>
+</div>}
 <div className="row mt-20">
 <div className="col-md-4 font-b">Date and Time</div>
-<div className="col-md-8">{new Date(constact.createdAt).getDate()>9?new Date(constact.createdAt).getDate():"0"+new Date(constact.createdAt).getDate()}{"-"}{new Date(constact.createdAt).getMonth()+1>9?new Date(constact.createdAt).getMonth()+1:"0"+(new Date(constact.createdAt).getMonth()+1)}{"-"}{new Date(constact.createdAt).getFullYear()} {constact.createdAt.split("T")[1].split(".")[0].substr(0, 5)}</div>
+<div className="col-md-8">{new Date(demo.time_slot).getDate()>9?new Date(demo.time_slot).getDate():"0"+new Date(demo.time_slot).getDate()}{"-"}{new Date(demo.time_slot).getMonth()+1>9?new Date(demo.time_slot).getMonth()+1:"0"+(new Date(demo.time_slot).getMonth()+1)}{"-"}{new Date(demo.time_slot).getFullYear()} {demo.time_slot.split("T")[1].split(".")[0].substr(0, 5)}</div>
 </div>
-{constact.ip_address&&<div className="row mt-20">
+{demo.ip_address&&<div className="row mt-20">
 <div className="col-md-4 font-b">IP</div>
-<div className="col-md-8">{constact.ip_address}</div>
+<div className="col-md-8">{demo.ip_address}</div>
 </div>}
 
 <div className="row mt-20">
 <div className="col-md-4 font-b">Status</div>
-<div className="col-md-8">{constact.status}</div>
+<div className="col-md-8">{demo.status}</div>
 </div>
 
 <div className="row mt-20">
 <div className="col-lg-12">
 <div className="form-group text-left">
-<Link to={`/contacts/request`}>
+<Link to={`/demo/request`}>
 <button type="button" className="btn btn-success btn-login waves-effect waves-light mr-3">Back</button>
 </Link>
 </div>

@@ -4,6 +4,10 @@ import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+// import { API_URl } from './api';
+// import {useEffect,useState} from "react";
+// import axios from 'axios';
+
 function Client(props) {
     return (
         <div>
@@ -95,31 +99,28 @@ View
 <ul className="pagination">
 
 <li className="paginate_button page-item previous disabled">
-<a href="#" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
 </li>
 
 <li className="paginate_button page-item active">
-<a href="#" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="2" tabIndex="0" className="page-link">2</a>
 </li>
 
 <li className="paginate_button page-item ">
-<a href="#" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
+<a href="#/" aria-controls="datatable" data-dt-idx="3" tabIndex="0" className="page-link">3</a>
 </li>
 
 <li className="paginate_button page-item next">
-<a href="#" tabIndex="0" className="page-link">Next</a>
+<a href="#/" tabIndex="0" className="page-link">Next</a>
 </li>
 
 </ul>
 </div>
 </div>
-
-
-
 </div>
 
 
