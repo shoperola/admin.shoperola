@@ -22,7 +22,6 @@ function FooterLogo(props) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data.data[0]?._id);
       setData(res.data?.data);
       setState({
         logo: res.data.data[0]?.logo,
@@ -33,6 +32,10 @@ function FooterLogo(props) {
   }, []);
 
   const handleChange = (e) => {
+    if (e.target.files.length === 0 || !e.target.files[0]) {
+      alert("Please upload a valid Image");
+      return;
+    }
     setState({
       ...State,
       [e.target.name]: e.target.files[0],
@@ -45,7 +48,7 @@ function FooterLogo(props) {
       const formData = new FormData();
       formData.append("file", State.logo);
       let resData = await axios.patch(
-        `${API_URl}/admin/update_logo/${data[0]?._id}`,
+        `${API_URl}/admin/update_logo`,
         formData,
         {
           headers: {
@@ -141,6 +144,7 @@ function FooterLogo(props) {
                                   <button
                                     type="button"
                                     className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                    onClick={() => window.location.reload()}
                                   >
                                     Cancel
                                   </button>

@@ -54,7 +54,7 @@ function FooterAddress(props) {
   const handleSubmit = async (e) => {
     if (data[0]?._id) {
       let resData = await axios.patch(
-        `${API_URl}/admin/update_address/${data[0]?._id}`,
+        `${API_URl}/admin/update_address`,
         State,
         {
           headers: {
@@ -115,7 +115,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Company Name
@@ -134,7 +134,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Address
@@ -153,7 +153,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   City
@@ -172,7 +172,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   State
@@ -191,7 +191,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Country
@@ -210,7 +210,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Pincode
@@ -229,7 +229,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Website
@@ -248,7 +248,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Contact Number
@@ -267,7 +267,7 @@ function FooterAddress(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Email
@@ -296,6 +296,7 @@ function FooterAddress(props) {
                                   <button
                                     type="button"
                                     className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                    onClick={() => window.location.reload()}
                                   >
                                     Cancel
                                   </button>

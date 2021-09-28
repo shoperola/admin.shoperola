@@ -9,7 +9,11 @@ import Sidebar from "../Sidebar";
 
 function FooterSocialMedia(props) {
   const { token } = isAutheticated();
-  const [data, setData] = useState([]);
+  const [facebook, setFacebook] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,39 +22,47 @@ function FooterSocialMedia(props) {
           Authorization: `Bearer ${token}`,
         },
       });
-      setData(res.data?.data);
-      setState({
-        facebook: res.data.data[0]?.facebook,
-        twitter: res.data.data[0]?.twitter,
-        instagram: res.data.data[0]?.instagram,
-        linkedin: res.data.data[0]?.linkedin,
-      });
+
+      setFacebook(res.data.data[0].facebook);
+      setInstagram(res.data.data[0].instagram);
+      setTwitter(res.data.data[0].twitter);
+      setLinkedin(res.data.data[0].linkedin);
+      setId(res.data.data[0]._id);
     };
     fetchData();
   }, []);
 
-  const [State, setState] = useState({
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    linkedin: "",
-  });
   const handleChange = (e) => {
-    setState({
-      ...State,
-      [e.target.name]: e.target.value,
-    });
+    const value = e.target.value;
+    const name = e.target.name;
+
+    switch (name) {
+      case "instagram":
+        setInstagram(value);
+        break;
+      case "facebook":
+        setFacebook(value);
+        break;
+      case "twitter":
+        setTwitter(value);
+        break;
+      case "linkedin":
+        setLinkedin(value);
+        break;
+      default:
+        console.log(name);
+    }
   };
 
   const handleSubmit = async (e) => {
-    if (data[0]?._id) {
+    if (id) {
       let resData = await axios.patch(
-        `${API_URl}/admin/update_social/${data[0]?._id}`,
+        `${API_URl}/admin/update_social`,
         {
-          facebook: State.facebook,
-          twitter: State.twitter,
-          instagram: State.instagram,
-          linkedin: State.linkedin,
+          facebook: facebook,
+          twitter: twitter,
+          instagram: instagram,
+          linkedin: linkedin,
         },
         {
           headers: {
@@ -65,10 +77,10 @@ function FooterSocialMedia(props) {
       let res = await axios.post(
         `${API_URl}/admin/add_social`,
         {
-          facebook: State.facebook,
-          twitter: State.twitter,
-          instagram: State.instagram,
-          linkedin: State.linkedin,
+          facebook: facebook,
+          twitter: twitter,
+          instagram: instagram,
+          linkedin: linkedin,
         },
         {
           headers: {
@@ -120,13 +132,13 @@ function FooterSocialMedia(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Facebook
                                 </label>
                                 <input
-                                  value={State.facebook}
+                                  value={facebook}
                                   name="facebook"
                                   onChange={handleChange}
                                   type="text"
@@ -139,13 +151,13 @@ function FooterSocialMedia(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Twitter
                                 </label>
                                 <input
-                                  value={State.twitter}
+                                  value={twitter}
                                   name="twitter"
                                   onChange={handleChange}
                                   type="text"
@@ -158,13 +170,13 @@ function FooterSocialMedia(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Instagram
                                 </label>
                                 <input
-                                  value={State.instagram}
+                                  value={instagram}
                                   name="instagram"
                                   onChange={handleChange}
                                   type="text"
@@ -177,13 +189,13 @@ function FooterSocialMedia(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Linkedin
                                 </label>
                                 <input
-                                  value={State.linkedin}
+                                  value={linkedin}
                                   name="linkedin"
                                   onChange={handleChange}
                                   type="text"
@@ -206,6 +218,7 @@ function FooterSocialMedia(props) {
                                 <button
                                   type="button"
                                   className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                  onClick={() => window.location.reload()}
                                 >
                                   Cancel
                                 </button>

@@ -6,6 +6,8 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { isAutheticated } from "./auth/authHelper";
 
+import { API_URl } from "./api";
+
 function HomePageSettings(props) {
   const [State, setState] = useState({
     hero_title: "",
@@ -30,17 +32,12 @@ function HomePageSettings(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let res = await axios.get(
-        `https://api.tellytell.com/admin/view_all_home`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(res.data);
+      let res = await axios.get(`${API_URl}/admin/view_home_setting`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setData(res.data?.data);
-      console.log(State.section1_title);
       setState({
         hero_title: res.data?.data[0]?.hero_title,
         description: res.data?.data[0]?.description,
@@ -63,26 +60,29 @@ function HomePageSettings(props) {
   }, []);
 
   const handleChange = (e) => {
-    // if (e.target.name === "image_title" || e.target.name === "image_description_1" || e.target.name === "image_description_2" || e.target.name === "image_description_3" || e.target.name === "image_description_4") {
-    //     console.log(e.target.name)
-    //     setState({
-    //         ...State,
-    //         [e.target.name]: e.target.files[0]
-    //     })
-    // } else {
-    console.log(e.target.value);
-    setState({
-      ...State,
-      [e.target.name]: e.target.value,
-    });
-    // }
+    if (
+      e.target.name === "image_title" ||
+      e.target.name === "image_description_1" ||
+      e.target.name === "image_description_2" ||
+      e.target.name === "image_description_3" ||
+      e.target.name === "image_description_4"
+    ) {
+      setState({
+        ...State,
+        [e.target.name]: e.target.files[0],
+      });
+    } else {
+      setState({
+        ...State,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     console.log(State.section1_title);
     console.log(data[0]?._id);
     if (data[0]?._id) {
-      console.log(State);
       const formData = new FormData();
       formData.append("hero_title", State.hero_title);
       formData.append("description", State.description);
@@ -103,7 +103,7 @@ function HomePageSettings(props) {
       //     Authorization: `Bearer ${token}`,
       // }
       let res = await axios.patch(
-        `https://mantur-server.herokuapp.com/admin/update_home_setting/${data[0]?._id}`,
+        `${API_URl}/admin/update_home_setting`,
         formData,
         {
           headers: {
@@ -112,12 +112,10 @@ function HomePageSettings(props) {
           },
         }
       );
-      console.log(res);
       if (res) {
         window.location.reload();
       }
     } else {
-      console.log(State);
       const formData = new FormData();
       formData.append("hero_title", State.hero_title);
       formData.append("description", State.description);
@@ -134,20 +132,12 @@ function HomePageSettings(props) {
       formData.append("section4_title", State.section4_title);
       formData.append("description_4", State.description_4);
       formData.append("image_description_4", State.image_description_4);
-      // headers: {
-      //     Authorization: `Bearer ${token}`,
-      // }
-      let res = await axios.post(
-        `http://api.tellytell.info/admin/add_data`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(res);
+      let res = await axios.post(`${API_URl}/admin/add_data`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       if (res) {
         window.location.reload();
       }
@@ -519,6 +509,7 @@ function HomePageSettings(props) {
                                   <button
                                     type="button"
                                     className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                    onClick={() => window.location.reload()}
                                   >
                                     Cancel
                                   </button>

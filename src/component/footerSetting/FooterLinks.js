@@ -23,12 +23,11 @@ function FooterLinks(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let res = await axios.get(`${API_URl}/admin/view_links`, {
+      let res = await axios.get(`${API_URl}/admin/view_link`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data);
       setData(res.data?.data);
       setState({
         link1: res.data?.data[0]?.link1,
@@ -54,7 +53,7 @@ function FooterLinks(props) {
   const handleSubmit = async (e) => {
     if (data[0]?._id) {
       let resData = await axios.patch(
-        `${API_URl}/admin/update_link/${data[0]?._id}`,
+        `${API_URl}/admin/update_link`,
         {
           link1: State.link1,
           url1: State.url1,
@@ -347,6 +346,7 @@ function FooterLinks(props) {
                                   <button
                                     type="button"
                                     className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                    onClick={() => window.location.reload()}
                                   >
                                     Cancel
                                   </button>
