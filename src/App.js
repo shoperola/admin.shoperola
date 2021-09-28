@@ -29,7 +29,7 @@ function App() {
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/resetPassword" exact component={ChangePassword} />
         <Route path="/client" exact component={Client} />
-        <Route path="/client/view" exact component={ClientView} />
+        <Route path="/client/view/:id" exact component={ClientView} />
         <Route path="/client/add" exact component={ClientAdd} />
         <Route path="/orders" exact component={Orders} />
         <Route path="/orders/view" exact component={OrdersView} />

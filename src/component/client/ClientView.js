@@ -1,9 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
+import { API_URl } from "../api";
 
 function ClientView(props) {
+  const { id } = useParams();
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = () => {
+      axios.get(`${API_URl}/admin_users`).then((res) => {
+        const fetchedData = res.data.data;
+        const client = fetchedData.filter((item) => item._id === id)[0];
+        setData(client);
+        console.log(client);
+      });
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div>
       <Sidebar />
@@ -39,14 +58,14 @@ function ClientView(props) {
 
                       <div className="col-sm-12 col-md-6">
                         <div className="dropdown d-block">
-                          <a href="clients.html">
+                          <Link to="/client">
                             <button
                               type="button"
                               className="btn btn-primary add-btn waves-effect waves-light float-right"
                             >
                               Back
                             </button>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -57,25 +76,31 @@ function ClientView(props) {
                             <td width="20%">
                               <b>First Name</b>
                             </td>
-                            <td>Nadeem</td>
+                            <td>{data?.firstName}</td>
                           </tr>
                           <tr>
                             <td width="20%">
                               <b>Last Name</b>
                             </td>
-                            <td>Khan</td>
+                            <td>{data?.lastName}</td>
                           </tr>
                           <tr>
                             <td width="20%">
                               <b>Email</b>
                             </td>
-                            <td>test@gmail.com</td>
+                            <td>{data?.email}</td>
                           </tr>
                           <tr>
                             <td width="20%">
                               <b>Joined On</b>
                             </td>
-                            <td>22 Jul 2021</td>
+                            <td>
+                              {new Date(data?.createdAt)
+                                .toDateString(data?.createdAt)
+                                .split(" ")
+                                .slice(1)
+                                .join(" ")}
+                            </td>
                           </tr>
                           <tr>
                             <td width="20%">

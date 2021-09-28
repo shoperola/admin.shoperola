@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API_URl } from "../api";
 import { isAutheticated } from "../auth/authHelper";
 import Footer from "../Footer";
@@ -8,79 +8,85 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 
 function ClientAdd(props) {
-  const { token } = isAutheticated();
-  const [data, setData] = useState([]);
+  // const { token } = isAutheticated();
+  const history = useHistory();
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       let res = await axios.get(`${API_URl}/admin/view_social`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       setData(res.data?.data);
-  //       setState({
-  //         facebook: res.data.data[0]?.facebook,
-  //         twitter: res.data.data[0]?.twitter,
-  //         instagram: res.data.data[0]?.instagram,
-  //         linkedin: res.data.data[0]?.linkedin,
-  //       });
-  //     };
-  //     fetchData();
-  //   }, []);
+  const [data, setData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    store_name: "",
+    industry: "",
+    company_name: "",
+    country: "",
+    state: "",
+    city: "",
+    address: "",
+    pincode: "",
+    contact_number: "",
+  });
 
-  //   const [State, setState] = useState({
-  //     facebook: "",
-  //     twitter: "",
-  //     instagram: "",
-  //     linkedin: "",
-  //   });
-  //   const handleChange = (e) => {
-  //     setState({
-  //       ...State,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  const handleEdit = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
 
-  //   const handleSubmit = async (e) => {
-  //     if (data[0]?._id) {
-  //       let resData = await axios.patch(
-  //         `${API_URl}/admin/update_social/${data[0]?._id}`,
-  //         {
-  //           facebook: State.facebook,
-  //           twitter: State.twitter,
-  //           instagram: State.instagram,
-  //           linkedin: State.linkedin,
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       if (resData) {
-  //         window.location.reload();
-  //       }
-  //     } else {
-  //       let res = await axios.post(
-  //         `${API_URl}/admin/add_social`,
-  //         {
-  //           facebook: State.facebook,
-  //           twitter: State.twitter,
-  //           instagram: State.instagram,
-  //           linkedin: State.linkedin,
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       if (res) {
-  //         window.location.reload();
-  //       }
-  //     }
-  //   };
+    setData((prev) => {
+      return { ...prev, [key]: value };
+    });
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post(`${API_URl}/signup`, {
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        password: data.password,
+      })
+      .then(async (res) => {
+        const token = res.data.token;
+
+        const store_data = await axios.put(
+          `${API_URl}/api/user`,
+          {
+            store_name: data.store_name,
+            industry: data.industry,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const address_data = await axios.put(
+          `${API_URl}/api/user/update_address`,
+          {
+            company_name: data.company_name,
+            AdminAddress: data.address,
+            city: data.city,
+            state: data.state,
+            country: data.country,
+            pincode: data.pincode,
+            contact_number: data.contact_number,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (store_data && address_data) {
+          console.log("Success");
+          history.push("/client");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -120,15 +126,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   First Name
                                 </label>
                                 <input
-                                  //   value={State.facebook}
+                                  value={data.first_name}
                                   name="first_name"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -139,15 +145,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Last Name
                                 </label>
                                 <input
-                                  //   value={State.twitter}
+                                  value={data.last_name}
                                   name="last_name"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -158,15 +164,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Email
                                 </label>
                                 <input
-                                  //   value={State.instagram}
+                                  value={data.email}
                                   name="email"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -177,16 +183,16 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Password
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.password}
                                   name="password"
-                                  //   onChange={handleChange}
-                                  type="text"
+                                  onChange={handleEdit}
+                                  type="password"
                                   className="form-control input-field"
                                 />
                               </div>
@@ -196,15 +202,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Store Name
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.store_name}
                                   name="store_name"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -216,19 +222,33 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Which Industry will the client be operating
                                   in?
                                 </label>
-                                <input
-                                  //   value={State.linkedin}
+                                <select
                                   name="industry"
-                                  //   onChange={handleChange}
-                                  type="text"
+                                  value={data.industry}
                                   className="form-control input-field"
-                                />
+                                  onChange={handleEdit}
+                                >
+                                  <option value="">--select--</option>
+                                  <option value="BEAUTY">Beauty</option>
+                                  <option value="CLOTHING">Clothing</option>
+                                  <option value="ELECTRONICS">
+                                    Electronics
+                                  </option>
+                                  <option value="HANDICRAFTS">
+                                    Handicrafts
+                                  </option>
+                                  <option value="JEWELRY">Jewelry</option>
+                                  <option value="PAINTING">Painting</option>
+                                  <option value="PHOTOGRAPHY">
+                                    Photography
+                                  </option>
+                                </select>
                               </div>
                             </div>
                           </div>
@@ -237,15 +257,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Company Name
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.company_name}
                                   name="company_name"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -257,15 +277,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Country
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.country}
                                   name="country"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -277,15 +297,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   State
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.state}
                                   name="state"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -297,15 +317,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   City
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.city}
                                   name="city"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -317,15 +337,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Address
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.address}
                                   name="address"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -337,15 +357,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Pincode
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
+                                  value={data.pincode}
                                   name="pincode"
-                                  //   onChange={handleChange}
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -357,15 +377,15 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group">
                                 <label
-                                  for="basicpill-phoneno-input"
+                                  htmlFor="basicpill-phoneno-input"
                                   className="label-100"
                                 >
                                   Contact Number
                                 </label>
                                 <input
-                                  //   value={State.linkedin}
-                                  name="cont_number"
-                                  //   onChange={handleChange}
+                                  value={data.contact_number}
+                                  name="contact_number"
+                                  onChange={handleEdit}
                                   type="text"
                                   className="form-control input-field"
                                 />
@@ -377,18 +397,20 @@ function ClientAdd(props) {
                             <div className="col-lg-12">
                               <div className="form-group text-left">
                                 <button
-                                  //   onClick={handleSubmit}
+                                  onClick={handleSubmit}
                                   type="button"
                                   className="btn btn-success btn-login waves-effect waves-light mr-3"
                                 >
                                   Save
                                 </button>
-                                <button
-                                  type="button"
-                                  className="btn btn-success btn-cancel waves-effect waves-light mr-3"
-                                >
-                                  Cancel
-                                </button>
+                                <Link to="/client">
+                                  <button
+                                    type="button"
+                                    className="btn btn-success btn-cancel waves-effect waves-light mr-3"
+                                  >
+                                    Cancel
+                                  </button>
+                                </Link>
                               </div>
                             </div>
                           </div>

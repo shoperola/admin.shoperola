@@ -25,6 +25,11 @@ function HomePageSettings(props) {
     section4_title: "",
     description_4: "",
     image_description_4: "",
+    image_title_url: "",
+    image_description_1_url: "",
+    image_description_2_url: "",
+    image_description_3_url: "",
+    image_description_4_url: "",
   });
 
   const { token } = isAutheticated();
@@ -38,6 +43,7 @@ function HomePageSettings(props) {
         },
       });
       setData(res.data?.data);
+      console.log(res.data?.data[0]?.image_description_1);
       setState({
         hero_title: res.data?.data[0]?.hero_title,
         description: res.data?.data[0]?.description,
@@ -54,6 +60,11 @@ function HomePageSettings(props) {
         section4_title: res.data?.data[0]?.section4_title,
         description_4: res.data?.data[0]?.description_4,
         image_description_4: res.data?.data[0]?.image_description_4,
+        image_title_url: res.data?.data[0]?.image_title,
+        image_description_1_url: res.data?.data[0]?.image_description_1,
+        image_description_2_url: res.data?.data[0]?.image_description_2,
+        image_description_3_url: res.data?.data[0]?.image_description_3,
+        image_description_4_url: res.data?.data[0]?.image_description_4,
       });
     };
     fetchData();
@@ -70,6 +81,7 @@ function HomePageSettings(props) {
       setState({
         ...State,
         [e.target.name]: e.target.files[0],
+        [e.target.name + "_url"]: URL.createObjectURL(e.target.files[0]),
       });
     } else {
       setState({
@@ -223,6 +235,15 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
+                                  {State.image_title_url && (
+                                    <img
+                                      src={State.image_title_url}
+                                      style={{
+                                        height: "100px",
+                                        width: "130px",
+                                      }}
+                                    />
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -286,6 +307,15 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
+                                  {State.image_description_1_url.length > 0 && (
+                                    <img
+                                      src={State.image_description_1_url}
+                                      style={{
+                                        height: "100px",
+                                        width: "130px",
+                                      }}
+                                    />
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -349,6 +379,15 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
+                                  {State.image_description_2_url.length > 0 && (
+                                    <img
+                                      src={State.image_description_2_url}
+                                      style={{
+                                        height: "100px",
+                                        width: "130px",
+                                      }}
+                                    />
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -412,6 +451,15 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
+                                  {State.image_description_3_url.length > 0 && (
+                                    <img
+                                      src={State.image_description_3_url}
+                                      style={{
+                                        height: "100px",
+                                        width: "130px",
+                                      }}
+                                    />
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -475,6 +523,15 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
+                                  {State.image_description_1_url.length > 0 && (
+                                    <img
+                                      src={State.image_description_1_url}
+                                      style={{
+                                        height: "100px",
+                                        width: "130px",
+                                      }}
+                                    />
+                                  )}
                                 </div>
                               </div>
                             </div>

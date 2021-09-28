@@ -8,6 +8,18 @@ import { API_URl } from "../api";
 import axios from "axios";
 
 function Client(props) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = () => {
+      axios.get(`${API_URl}/admin_users`).then((res) => {
+        setData(res.data.data);
+      });
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Sidebar />
@@ -84,33 +96,42 @@ function Client(props) {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Nadeem</td>
-                            <td>Khan</td>
-                            <td>nadeemkp181@gmail.com</td>
-                            <td>07 Oct, 2019</td>
-                            <td>
-                              <span className="badge badge-pill badge-soft-success font-size-12">
-                                Live
-                              </span>
-                            </td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success btn-sm  waves-effect waves-light btn-table"
-                              >
-                                Suspend
-                              </button>
-                              <Link to="/client/view">
-                                <button
-                                  type="button"
-                                  className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2"
-                                >
-                                  View
-                                </button>
-                              </Link>
-                            </td>
-                          </tr>
+                          {data.length > 0 &&
+                            data.map((item) => (
+                              <tr>
+                                <td>{item.firstName}</td>
+                                <td>{item.lastName}</td>
+                                <td>{item.email}</td>
+                                <td>
+                                  {new Date(item.createdAt)
+                                    .toDateString(item.createdAt)
+                                    .split(" ")
+                                    .slice(1)
+                                    .join(" ")}
+                                </td>
+                                <td>
+                                  <span className="badge badge-pill badge-soft-success font-size-12">
+                                    Live
+                                  </span>
+                                </td>
+                                <td>
+                                  <button
+                                    type="button"
+                                    className="btn btn-success btn-sm  waves-effect waves-light btn-table"
+                                  >
+                                    Suspend
+                                  </button>
+                                  <Link to={`/client/view/${item._id}`}>
+                                    <button
+                                      type="button"
+                                      className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2"
+                                    >
+                                      View
+                                    </button>
+                                  </Link>
+                                </td>
+                              </tr>
+                            ))}
                         </tbody>
                       </table>
                     </div>
