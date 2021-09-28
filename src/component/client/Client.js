@@ -1,22 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Footer from "../Footer";
+import Header from "../Header";
+import Sidebar from "../Sidebar";
 
-import { API_URl } from "./api";
-import { useEffect, useState } from "react";
+import { API_URl } from "../api";
 import axios from "axios";
 
-function NewsLetters(props) {
-  const [newsLetters, setNewsLetters] = useState(null);
-  useEffect(() => {
-    const getNewsLetters = async () => {
-      let { data } = await axios.get(`${API_URl}/view_news`);
-      setNewsLetters(data.data);
-    };
-    getNewsLetters();
-  }, []);
+function Client(props) {
   return (
     <div>
       <Sidebar />
@@ -28,16 +19,14 @@ function NewsLetters(props) {
             <div className="row">
               <div className="col-12">
                 <div className="page-title-box d-flex align-items-center justify-content-between">
-                  <h4 className="mb-0">Newsletter Subscribers</h4>
+                  <h4 className="mb-0">Clients</h4>
 
                   <div className="page-title-right">
                     <ol className="breadcrumb m-0">
                       <li className="breadcrumb-item">
                         <Link to="/">TellyTell</Link>
                       </li>
-                      <li className="breadcrumb-item active">
-                        Newsletter Subscribers
-                      </li>
+                      <li className="breadcrumb-item active">Clients</li>
                     </ol>
                   </div>
                 </div>
@@ -67,50 +56,61 @@ function NewsLetters(props) {
                           </label>
                         </div>
                       </div>
+                      <div className="col-sm-12 col-md-6">
+                        <div className="dropdown d-block">
+                          <Link to="/client/add">
+                            <button
+                              type="button"
+                              className="btn btn-primary add-btn waves-effect waves-light float-right"
+                            >
+                              <i className="fa fa-plus" aria-hidden="true"></i>{" "}
+                              Add New Client
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="table-responsive table-shoot">
                       <table className="table table-centered table-nowrap mb-0">
                         <thead className="thead-light">
                           <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Email</th>
-                            <th>IP</th>
-                            <th>Data and Time</th>
+                            <th>Joined On</th>
+                            <th>Status</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {newsLetters &&
-                            newsLetters.map((newsLetter) => (
-                              <tr key={newsLetter._id}>
-                                <td>{newsLetter.email}</td>
-                                <td>{newsLetter.ip_address}</td>
-                                <td>
-                                  {new Date(newsLetter.updatedAt).getDate() > 9
-                                    ? new Date(newsLetter.updatedAt).getDate()
-                                    : "0" +
-                                      new Date(newsLetter.updatedAt).getDate()}
-                                  {"-"}
-                                  {new Date(newsLetter.updatedAt).getMonth() +
-                                    1 >
-                                  9
-                                    ? new Date(
-                                        newsLetter.updatedAt
-                                      ).getMonth() + 1
-                                    : "0" +
-                                      (new Date(
-                                        newsLetter.updatedAt
-                                      ).getMonth() +
-                                        1)}
-                                  {"-"}
-                                  {new Date(newsLetter.updatedAt).getFullYear()}
-                                  {"  "}{" "}
-                                  {newsLetter.updatedAt
-                                    .split("T")[1]
-                                    .split(".")[0]
-                                    .substr(0, 5)}
-                                </td>
-                              </tr>
-                            ))}
+                          <tr>
+                            <td>Nadeem</td>
+                            <td>Khan</td>
+                            <td>nadeemkp181@gmail.com</td>
+                            <td>07 Oct, 2019</td>
+                            <td>
+                              <span className="badge badge-pill badge-soft-success font-size-12">
+                                Live
+                              </span>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-success btn-sm  waves-effect waves-light btn-table"
+                              >
+                                Suspend
+                              </button>
+                              <Link to="/client/view">
+                                <button
+                                  type="button"
+                                  className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2"
+                                >
+                                  View
+                                </button>
+                              </Link>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -204,4 +204,4 @@ function NewsLetters(props) {
   );
 }
 
-export default NewsLetters;
+export default Client;

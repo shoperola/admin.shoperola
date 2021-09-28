@@ -1,21 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Footer from "../Footer";
+import Header from "../Header";
+import Sidebar from "../Sidebar";
 
-import { API_URl } from "./api";
+import { API_URl } from "../api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function NewsLetters(props) {
-  const [newsLetters, setNewsLetters] = useState(null);
+function ContactRequest(props) {
+  const [constacts, setContacts] = useState(null);
   useEffect(() => {
-    const getNewsLetters = async () => {
-      let { data } = await axios.get(`${API_URl}/view_news`);
-      setNewsLetters(data.data);
+    const getContacts = async () => {
+      let { data } = await axios.get(`${API_URl}/view_contact`);
+      setContacts(data.data);
     };
-    getNewsLetters();
+    getContacts();
   }, []);
   return (
     <div>
@@ -28,7 +28,7 @@ function NewsLetters(props) {
             <div className="row">
               <div className="col-12">
                 <div className="page-title-box d-flex align-items-center justify-content-between">
-                  <h4 className="mb-0">Newsletter Subscribers</h4>
+                  <h4 className="mb-0">Contact Requests</h4>
 
                   <div className="page-title-right">
                     <ol className="breadcrumb m-0">
@@ -36,7 +36,7 @@ function NewsLetters(props) {
                         <Link to="/">TellyTell</Link>
                       </li>
                       <li className="breadcrumb-item active">
-                        Newsletter Subscribers
+                        Contact Requests
                       </li>
                     </ol>
                   </div>
@@ -50,7 +50,7 @@ function NewsLetters(props) {
                 <div className="card">
                   <div className="card-body">
                     <div className="row ml-0 mr-0  mb-10">
-                      <div className="col-sm-12 col-md-6">
+                      <div className="col-sm-12 col-md-12">
                         <div className="dataTables_length">
                           <label className="w-100">
                             Show{" "}
@@ -73,41 +73,53 @@ function NewsLetters(props) {
                       <table className="table table-centered table-nowrap mb-0">
                         <thead className="thead-light">
                           <tr>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>IP</th>
-                            <th>Data and Time</th>
+                            <th>Date and Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {newsLetters &&
-                            newsLetters.map((newsLetter) => (
-                              <tr key={newsLetter._id}>
-                                <td>{newsLetter.email}</td>
-                                <td>{newsLetter.ip_address}</td>
+                          {constacts &&
+                            constacts.map((constact) => (
+                              <tr key={constact._id}>
+                                <td>{constact.name}</td>
+                                <td>{constact.email}</td>
                                 <td>
-                                  {new Date(newsLetter.updatedAt).getDate() > 9
-                                    ? new Date(newsLetter.updatedAt).getDate()
+                                  {new Date(constact.createdAt).getDate() > 9
+                                    ? new Date(constact.createdAt).getDate()
                                     : "0" +
-                                      new Date(newsLetter.updatedAt).getDate()}
+                                      new Date(constact.createdAt).getDate()}
                                   {"-"}
-                                  {new Date(newsLetter.updatedAt).getMonth() +
-                                    1 >
+                                  {new Date(constact.createdAt).getMonth() + 1 >
                                   9
-                                    ? new Date(
-                                        newsLetter.updatedAt
-                                      ).getMonth() + 1
+                                    ? new Date(constact.createdAt).getMonth() +
+                                      1
                                     : "0" +
-                                      (new Date(
-                                        newsLetter.updatedAt
-                                      ).getMonth() +
+                                      (new Date(constact.createdAt).getMonth() +
                                         1)}
                                   {"-"}
-                                  {new Date(newsLetter.updatedAt).getFullYear()}
-                                  {"  "}{" "}
-                                  {newsLetter.updatedAt
-                                    .split("T")[1]
-                                    .split(".")[0]
-                                    .substr(0, 5)}
+                                  {new Date(constact.createdAt).getFullYear()}
+                                </td>
+                                <td>
+                                  <span className="badge badge-pill badge-soft-success font-size-12">
+                                    {constact.status
+                                      ? constact.status
+                                      : "Pending"}
+                                  </span>
+                                </td>
+                                <td>
+                                  <Link
+                                    to={`/contacts/request/view/${constact._id}`}
+                                  >
+                                    <button
+                                      type="button"
+                                      className="btn btn-info btn-sm  waves-effect waves-light btn-table ml-2"
+                                    >
+                                      View
+                                    </button>
+                                  </Link>
                                 </td>
                               </tr>
                             ))}
@@ -204,4 +216,4 @@ function NewsLetters(props) {
   );
 }
 
-export default NewsLetters;
+export default ContactRequest;
