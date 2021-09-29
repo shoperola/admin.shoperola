@@ -17,6 +17,20 @@ function NewsLetters(props) {
     };
     getNewsLetters();
   }, []);
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    let d = date.toDateString(dateStr).split(" ");
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    let strTime = hours + ":" + minutes + " " + ampm;
+    return d[2] + " " + d[1] + " " + d[3] + " " + strTime;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -85,7 +99,8 @@ function NewsLetters(props) {
                                 <td>{newsLetter.email}</td>
                                 <td>{newsLetter.ip_address}</td>
                                 <td>
-                                  {new Date(newsLetter.updatedAt).getDate() > 9
+                                  {formatDate(newsLetter.updatedAt)}
+                                  {/* {new Date(newsLetter.updatedAt).getDate() > 9
                                     ? new Date(newsLetter.updatedAt).getDate()
                                     : "0" +
                                       new Date(newsLetter.updatedAt).getDate()}
@@ -107,7 +122,7 @@ function NewsLetters(props) {
                                   {newsLetter.updatedAt
                                     .split("T")[1]
                                     .split(".")[0]
-                                    .substr(0, 5)}
+                                    .substr(0, 5)} */}
                                 </td>
                               </tr>
                             ))}
