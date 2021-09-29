@@ -9,6 +9,8 @@ import { isAutheticated } from "./auth/authHelper";
 import { API_URl } from "./api";
 
 function HomePageSettings(props) {
+  const videoImg =
+    "https://blog.majestic.com/wp-content/uploads/2010/10/Video-Icon-crop.png";
   const [State, setState] = useState({
     hero_title: "",
     description: "",
@@ -42,8 +44,8 @@ function HomePageSettings(props) {
           Authorization: `Bearer ${token}`,
         },
       });
+
       setData(res.data?.data);
-      console.log(res.data?.data[0]?.image_description_1);
       setState({
         hero_title: res.data?.data[0]?.hero_title,
         description: res.data?.data[0]?.description,
@@ -155,6 +157,27 @@ function HomePageSettings(props) {
       }
     }
   };
+
+  const isVideo = (url) => {
+    const urlParts = url.split(".");
+    const extension = urlParts[urlParts.length - 1];
+    if (extension === "mp4") {
+      return true;
+    }
+
+    return false;
+  };
+
+  const isValid = (url) => {
+    const urlParts = url.split(".");
+    const extension = urlParts[urlParts.length - 1];
+    if (extension === "mp4" || extension === "jpeg") {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -235,7 +258,7 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
-                                  {State.image_title_url && (
+                                  {State.image_title_url !== "undefined" && (
                                     <img
                                       src={State.image_title_url}
                                       style={{
@@ -307,15 +330,25 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
-                                  {State.image_description_1_url.length > 0 && (
-                                    <img
-                                      src={State.image_description_1_url}
-                                      style={{
-                                        height: "100px",
-                                        width: "130px",
-                                      }}
-                                    />
-                                  )}
+                                  {isValid(State.image_description_1_url) ? (
+                                    isVideo(State.image_description_1_url) ? (
+                                      <img
+                                        src={videoImg}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    ) : (
+                                      <img
+                                        src={State.image_description_1_url}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    )
+                                  ) : null}
                                 </div>
                               </div>
                             </div>
@@ -379,15 +412,25 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
-                                  {State.image_description_2_url.length > 0 && (
-                                    <img
-                                      src={State.image_description_2_url}
-                                      style={{
-                                        height: "100px",
-                                        width: "130px",
-                                      }}
-                                    />
-                                  )}
+                                  {isValid(State.image_description_2_url) ? (
+                                    isVideo(State.image_description_2_url) ? (
+                                      <img
+                                        src={videoImg}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    ) : (
+                                      <img
+                                        src={State.image_description_2_url}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    )
+                                  ) : null}
                                 </div>
                               </div>
                             </div>
@@ -451,15 +494,25 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
-                                  {State.image_description_3_url.length > 0 && (
-                                    <img
-                                      src={State.image_description_3_url}
-                                      style={{
-                                        height: "100px",
-                                        width: "130px",
-                                      }}
-                                    />
-                                  )}
+                                  {isValid(State.image_description_3_url) ? (
+                                    isVideo(State.image_description_3_url) ? (
+                                      <img
+                                        src={videoImg}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    ) : (
+                                      <img
+                                        src={State.image_description_3_url}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    )
+                                  ) : null}
                                 </div>
                               </div>
                             </div>
@@ -523,15 +576,25 @@ function HomePageSettings(props) {
                                     type="file"
                                     className="form-control input-field"
                                   />
-                                  {State.image_description_1_url.length > 0 && (
-                                    <img
-                                      src={State.image_description_1_url}
-                                      style={{
-                                        height: "100px",
-                                        width: "130px",
-                                      }}
-                                    />
-                                  )}
+                                  {isValid(State.image_description_4_url) ? (
+                                    isVideo(State.image_description_4_url) ? (
+                                      <img
+                                        src={videoImg}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    ) : (
+                                      <img
+                                        src={State.image_description_1_url}
+                                        style={{
+                                          height: "100px",
+                                          width: "130px",
+                                        }}
+                                      />
+                                    )
+                                  ) : null}
                                 </div>
                               </div>
                             </div>
