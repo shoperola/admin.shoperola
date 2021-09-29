@@ -17,6 +17,25 @@ function DemoRequest(props) {
     };
     getDemoRequests();
   }, []);
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    let d = date.toDateString(dateStr).split(" ");
+    return d[2] + " " + d[1] + " " + d[3];
+  };
+
+  const formatTime = (dateStr) => {
+    const date = new Date(dateStr);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    let strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -86,24 +105,8 @@ function DemoRequest(props) {
                               <tr key={req._id}>
                                 <td>{req.name}</td>
                                 <td>{req.email}</td>
-                                <td>
-                                  {new Date(req.time_slot).getDate() > 9
-                                    ? new Date(req.time_slot).getDate()
-                                    : "0" +
-                                      new Date(req.time_slot).getDate()}{" "}
-                                  {new Date(req.time_slot).getMonth() + 1 > 9
-                                    ? new Date(req.time_slot).getMonth() + 1
-                                    : "0" +
-                                      (new Date(req.time_slot).getMonth() +
-                                        1)}{" "}
-                                  {new Date(req.time_slot).getFullYear()}
-                                </td>
-                                <td>
-                                  {req.time_slot
-                                    ?.split("T")[1]
-                                    ?.split(".")[0]
-                                    ?.substr(0, 5)}
-                                </td>
+                                <td>{formatDate(req.time_slot)}</td>
+                                <td>{formatTime(req.time_slot)}</td>
                                 <td>
                                   <span className="badge badge-pill badge-soft-success font-size-12">
                                     Read
