@@ -17,6 +17,20 @@ function ContactRequest(props) {
     };
     getContacts();
   }, []);
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    let d = date.toDateString(dateStr).split(" ");
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    let strTime = hours + ":" + minutes + " " + ampm;
+    return d[2] + " " + d[1] + " " + d[3] + " " + strTime;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -86,22 +100,7 @@ function ContactRequest(props) {
                               <tr key={constact._id}>
                                 <td>{constact.name}</td>
                                 <td>{constact.email}</td>
-                                <td>
-                                  {new Date(constact.createdAt).getDate() > 9
-                                    ? new Date(constact.createdAt).getDate()
-                                    : "0" +
-                                      new Date(constact.createdAt).getDate()}
-                                  {"-"}
-                                  {new Date(constact.createdAt).getMonth() + 1 >
-                                  9
-                                    ? new Date(constact.createdAt).getMonth() +
-                                      1
-                                    : "0" +
-                                      (new Date(constact.createdAt).getMonth() +
-                                        1)}
-                                  {"-"}
-                                  {new Date(constact.createdAt).getFullYear()}
-                                </td>
+                                <td>{formatDate(constact.createdAt)}</td>
                                 <td>
                                   <span className="badge badge-pill badge-soft-success font-size-12">
                                     {constact.status
