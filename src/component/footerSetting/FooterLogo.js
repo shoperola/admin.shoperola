@@ -88,7 +88,7 @@ function FooterLogo(props) {
                   <div className="page-title-right">
                     <ol className="breadcrumb m-0">
                       <li className="breadcrumb-item">
-                        <Link to="/">TellyTell</Link>
+                        <Link to="/">Shoperola</Link>
                       </li>
                       <li className="breadcrumb-item active">Logo</li>
                     </ol>

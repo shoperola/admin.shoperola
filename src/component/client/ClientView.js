@@ -39,7 +39,7 @@ function ClientView(props) {
                   <div className="page-title-right">
                     <ol className="breadcrumb m-0">
                       <li className="breadcrumb-item">
-                        <Link to="/">TellyTell</Link>
+                        <Link to="/">Shoperola</Link>
                       </li>
                       <li className="breadcrumb-item active">Client</li>
                     </ol>
@@ -118,7 +118,7 @@ function ClientView(props) {
                             <td width="20%">
                               <b>Unique URL</b>
                             </td>
-                            <td>https://play.tellytell.com/1234</td>
+                            <td>https://play.Shoperola.com/1234</td>
                           </tr>
                           <tr>
                             <td width="20%">

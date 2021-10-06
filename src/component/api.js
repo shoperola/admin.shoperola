@@ -1,2 +1,1 @@
-export const API_URl = "https://api.tellytell.com"
-// export const API_URl = "https://mantur-server.herokuapp.com"
+export const API_URl = "https://shoperola.herokuapp.com";
