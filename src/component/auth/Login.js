@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { isAutheticated } from "./authHelper";
+import { API_URl } from "../api";
+
 function Login(props) {
   let history = useHistory();
   const [user, setUser] = useState({
@@ -23,7 +25,7 @@ function Login(props) {
     e.preventDefault();
     setLoading(!loading);
     axios
-      .post("https://api.Shoperola.com/sigin_admin", { ...user })
+      .post(`${API_URl}/signin_admin`, { ...user })
       .then((response) => {
         setLoading(false);
         localStorage.setItem(
