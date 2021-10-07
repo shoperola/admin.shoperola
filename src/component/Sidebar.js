@@ -1,27 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Sidebar(props) {
+  const [sideBar, setSideBar] = useState(false);
+
   return (
-    <div className="vertical-menu">
+    <div className="vertical-menu" style={sideBar ? { width: 80 } : null}>
       {/* <!-- LOGO --> */}
       <div className="navbar-brand-box">
         <Link to="/" className="logo logo-dark">
-          <span className="logo-sm">
-            <img src="/assets/images/logo-sm.png" alt="" height="40" />
-          </span>
-          <span className="logo-lg">
-            <img src="/assets/images/logo-light.png" alt="" height="20" />
-          </span>
-        </Link>
-
-        <Link to="/" className="logo logo-light">
-          <span className="logo-sm">
-            <img src="/assets/images/logo-sm.png" alt="" height="40" />
-          </span>
-          <span className="logo-lg">
-            <img src="/assets/images/logo-light.png" alt="" height="20" />
-          </span>
+          {!sideBar && (
+            <span className="logo-lg">
+              <img src="/assets/images/logo-light.png" alt="" height="20" />
+            </span>
+          )}
         </Link>
       </div>
 
@@ -35,8 +27,13 @@ function Sidebar(props) {
         waves-effect
         vertical-menu-btn
       "
+        onClick={() => setSideBar((prev) => !prev)}
       >
-        <i className="fa fa-fw fa-bars"></i>
+        {sideBar ? (
+          <img src="/assets/images/logo-light.png" alt="" height="15" />
+        ) : (
+          <i className="fa fa-fw fa-bars"></i>
+        )}
       </button>
 
       <div data-simplebar className="sidebar-menu-scroll">
@@ -46,14 +43,20 @@ function Sidebar(props) {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="active">
               <Link to="/">
-                <img src="/assets/images/icons/dashboard-icon.png" />
-                <span>Dashboard</span>
+                <img
+                  src="/assets/images/icons/dashboard-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Dashboard</span>}
               </Link>
             </li>
             <li>
               <Link to="/client">
-                <img src="/assets/images/icons/viewer-icon.png" />
-                <span>Clients</span>
+                <img
+                  src="/assets/images/icons/viewer-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Clients</span>}
               </Link>
             </li>
             {/* <li>
@@ -68,48 +71,63 @@ function Sidebar(props) {
                     </li> */}
             <li>
               <Link to="/newsletter">
-                <img src="/assets/images/icons/log-icon.png" />
-                <span>Newsletter Subscribers</span>
+                <img
+                  src="/assets/images/icons/log-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Newsletter Subscribers</span>}
               </Link>
             </li>
             <li>
               <Link to="/contacts/request">
-                <img src="/assets/images/icons/log-icon.png" />
-                <span>Contact Requests</span>
+                <img
+                  src="/assets/images/icons/log-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Contact Requests</span>}
               </Link>
             </li>
             <li>
               <Link to="/demo/request">
-                <img src="/assets/images/icons/log-icon.png" />
-                <span>Demo Requests</span>
+                <img
+                  src="/assets/images/icons/log-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Demo Requests</span>}
               </Link>
             </li>
             <li>
               <Link to="/home/settings">
-                <img src="/assets/images/icons/log-icon.png" />
-                <span>Home Page Settings</span>
+                <img
+                  src="/assets/images/icons/log-icon.png "
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Home Page Settings</span>}
               </Link>
             </li>
-            <li>
-              <a>
-                <img src="/assets/images/icons/cms-icon.png" />
-                <span>Footer Settings</span>
-              </a>
-              <ul className="sub-menu display-menu">
-                <li>
-                  <Link to="/social">Social Media</Link>
-                </li>
-                <li>
-                  <Link to="/address">Address</Link>
-                </li>
-                <li>
-                  <Link to="/logo">Logo</Link>
-                </li>
-                <li>
-                  <Link to="/links">Links</Link>
-                </li>
-              </ul>
-            </li>
+            {!sideBar && (
+              <li>
+                <a>
+                  <img src="/assets/images/icons/cms-icon.png" />
+                  <span>Footer Settings</span>
+                </a>
+
+                <ul className="sub-menu display-menu">
+                  <li>
+                    <Link to="/social">Social Media</Link>
+                  </li>
+                  <li>
+                    <Link to="/address">Address</Link>
+                  </li>
+                  <li>
+                    <Link to="/logo">Logo</Link>
+                  </li>
+                  <li>
+                    <Link to="/links">Links</Link>
+                  </li>
+                </ul>
+              </li>
+            )}
           </ul>
         </div>
         {/* <!-- Sidebar Ends --> */}
