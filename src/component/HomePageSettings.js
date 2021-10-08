@@ -159,22 +159,29 @@ function HomePageSettings(props) {
   };
 
   const isVideo = (url) => {
-    const urlParts = url.split(".");
-    const extension = urlParts[urlParts.length - 1];
-    if (extension === "mp4") {
-      return true;
+    if (url) {
+      const urlParts = url.split(".");
+      const extension = urlParts[urlParts.length - 1];
+      if (extension === "mp4") {
+        return true;
+      }
+
+      return false;
     }
 
     return false;
   };
 
   const isValid = (url) => {
-    const urlParts = url.split(".");
-    const extension = urlParts[urlParts.length - 1];
-    if (extension === "mp4" || extension === "jpeg") {
-      return true;
-    }
+    if (url) {
+      const urlParts = url?.split(".");
+      const extension = urlParts[urlParts.length - 1];
+      if (extension === "mp4" || extension === "jpeg") {
+        return true;
+      }
 
+      return false;
+    }
     return false;
   };
 
