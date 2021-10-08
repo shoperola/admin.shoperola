@@ -23,11 +23,11 @@ function FooterSocialMedia(props) {
         },
       });
 
-      setFacebook(res.data.data[0].facebook);
-      setInstagram(res.data.data[0].instagram);
-      setTwitter(res.data.data[0].twitter);
-      setLinkedin(res.data.data[0].linkedin);
-      setId(res.data.data[0]._id);
+      setFacebook(res.data.data[0]?.facebook);
+      setInstagram(res.data.data[0]?.instagram);
+      setTwitter(res.data.data[0]?.twitter);
+      setLinkedin(res.data.data[0]?.linkedin);
+      setId(res.data.data[0]?._id);
     };
     fetchData();
   }, []);
