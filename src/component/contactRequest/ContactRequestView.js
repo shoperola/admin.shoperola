@@ -65,11 +65,15 @@ function ContactRequestView(props) {
                             </div>
                             <div className="row mt-20">
                               <div className="col-md-4 font-b">Email</div>
-                              <div className="col-md-8">{constact.email}</div>
+                              <div className="col-md-8">
+                                {constact.contact_no}
+                              </div>
                             </div>
                             <div className="row mt-20">
                               <div className="col-md-4 font-b">Message</div>
-                              <div className="col-md-8">{constact.message}</div>
+                              <div className="col-md-8">
+                                {constact.description}
+                              </div>
                             </div>
                             <div className="row mt-20">
                               <div className="col-md-4 font-b">

@@ -99,7 +99,7 @@ function ContactRequest(props) {
                             constacts.map((constact) => (
                               <tr key={constact._id}>
                                 <td>{constact.name}</td>
-                                <td>{constact.email}</td>
+                                <td>{constact.contact_no}</td>
                                 <td>{formatDate(constact.createdAt)}</td>
                                 <td>
                                   <span className="badge badge-pill badge-soft-success font-size-12">
