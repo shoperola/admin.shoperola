@@ -105,6 +105,16 @@ function Sidebar(props) {
                 {!sideBar && <span>Home Page Settings</span>}
               </Link>
             </li>
+            <li>
+              <Link to="/email-templates">
+                <img
+                  src="/assets/images/icons/email-template-icon.png"
+                  style={sideBar ? { width: 25 } : null}
+                />
+                {!sideBar && <span>Email Templates</span>}
+              </Link>
+            </li>
+
             {!sideBar && (
               <li>
                 <a>

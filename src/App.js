@@ -20,6 +20,8 @@ import Orders from "./component/orders/Orders";
 import OrdersView from "./component/orders/OrdersView";
 import PaymentSettings from "./component/PaymentSettings";
 import ClientAdd from "./component/client/ClientAdd";
+import EmailTemplate from "./component/emailTemplates/EmailTemplates";
+import EmailTemplateEdit from "./component/emailTemplates/EmailTempalteEdit";
 
 function App() {
   return (
@@ -52,6 +54,12 @@ function App() {
         <Route path="/links" exact component={FooterLinks} />
         <Route path="/payment/settings" exact component={PaymentSettings} />
         <Route path="/newsletter" exact component={NewsLetters} />
+        <Route path="/email-templates" exact component={EmailTemplate} />
+        <Route
+          path="/email-templates/:id"
+          exact
+          component={EmailTemplateEdit}
+        />
       </Switch>
     </Router>
   );
