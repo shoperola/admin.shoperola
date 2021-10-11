@@ -46,13 +46,15 @@ const EmailTemplate = () => {
           },
         }
       )
-      .then(async (res) => {
+      .then((res) => {
         alert("Status changed successfully!");
         window.location.reload();
       })
       .catch((error) => {
         console.log(error);
       });
+    alert("Status changed successfully!");
+    window.location.reload();
   };
 
   const formatDate = (dateStr) => {
