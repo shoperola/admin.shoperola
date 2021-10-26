@@ -10,6 +10,22 @@ import Sidebar from "../Sidebar";
 function ClientAdd(props) {
   // const { token } = isAutheticated();
   const history = useHistory();
+  const industries = [
+    "Beverages (Chilled)",
+    "Books",
+    "Cigarettes and Tobacco",
+    "Clothing and Accessories",
+    "Cosmetics",
+    "Combo (Room Temperature + Chilled)",
+    "Electronics",
+    "Food (Room Temperature)",
+    "Food (Chilled)",
+    "Grocery",
+    "Gifting",
+    "Health and Wellness",
+    "Vegetables",
+    "Other",
+  ];
 
   const [data, setData] = useState({
     first_name: "",
@@ -235,19 +251,11 @@ function ClientAdd(props) {
                                   onChange={handleEdit}
                                 >
                                   <option value="">--select--</option>
-                                  <option value="BEAUTY">Beauty</option>
-                                  <option value="CLOTHING">Clothing</option>
-                                  <option value="ELECTRONICS">
-                                    Electronics
-                                  </option>
-                                  <option value="HANDICRAFTS">
-                                    Handicrafts
-                                  </option>
-                                  <option value="JEWELRY">Jewelry</option>
-                                  <option value="PAINTING">Painting</option>
-                                  <option value="PHOTOGRAPHY">
-                                    Photography
-                                  </option>
+                                  {industries.map((item, idx) => (
+                                    <option value={item} key={idx}>
+                                      {item}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
