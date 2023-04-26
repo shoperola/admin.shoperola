@@ -1,1 +1,1 @@
-export const API_URl = "https://shoperola.herokuapp.com";
+export const API_URl = "https://adventurous-seal-coat.cyclic.app";
